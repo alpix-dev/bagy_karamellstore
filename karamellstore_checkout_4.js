@@ -59,7 +59,7 @@ function apxZip(){
             $('.apx-titlezip').remove();
             promocoes_zip.forEach(item => {
               if (apx_clientZip >= item.cep_ini && apx_clientZip <= item.cep_fim) {
-                $(`<label class="apx-titlezip"><b>Aproveite!!</b> Descontos no frete para sua região!</label><p id="apx-linhazip" style="line-height: 24px;display: block;font-size: 12px;margin:15px 0 0 0">${item.msg}</p>`).insertAfter('.checkout-shipping .step-title');
+                $(`<label class="apx-titlezip"><b>Aproveite!!</b> Descontos no frete para sua região!</label><p class="apx-linhazip">${item.msg}</p>`).insertAfter('.checkout-shipping .step-title');
               }
               console.log(item);
             });
