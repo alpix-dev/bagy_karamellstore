@@ -1,5 +1,4 @@
-
-  let apx_clientZip = null;
+let apx_clientZip = null;
 
 if(history.state.current.includes('/carrinho')){
   (function(history){
@@ -12,6 +11,19 @@ if(history.state.current.includes('/carrinho')){
           return pushState.apply(history, arguments);
       };
   })(window.history);
+
+  (function() {
+    var originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(method, url) {
+        this.addEventListener('load', function() {
+            // Verifica se a URL da requisição contém "/shippings/"
+            if (url.indexOf('/shippings/') !== -1) {              
+                apxZip_cart();              
+            }
+        });
+        originalOpen.apply(this, arguments);
+    };
+  })();
 }
 
 
@@ -76,4 +88,25 @@ function apxZip(){
 
     // Iniciar a observação no elemento alvo
     observer.observe(elementoAlvo, config);
+}
+
+function apxZip_cart(){
+  console.log('APXZIP_cart');
+    if ($('[autocomplete="postal-code"]').val().length === 9) {
+      apx_clientZip = parseInt($('[autocomplete="postal-code"]').val().replace('-', ''));
+    }
+
+    $('body').on('keyup','[autocomplete="postal-code"]',function () {
+      if ($('[autocomplete="postal-code"]').val().length === 9) {
+        apx_clientZip = parseInt($('[autocomplete="postal-code"]').val().replace('-', ''));
+      }
+    });
+   $('.apx-titlezip').remove();
+    promocoes_zip.forEach(item => {
+      if (apx_clientZip >= item.cep_ini && apx_clientZip <= item.cep_fim) {
+        $(`<label class="apx-titlezip" style="margin-top:15px;"><b>Aproveite!!</b> Descontos no frete para sua região!</label><p class="apx-linhazip">${item.msg}</p>`).insertAfter('.cart-shipping > .ui-form-wrapper');
+      }
+      console.log(item);
+    });
+    
 }
