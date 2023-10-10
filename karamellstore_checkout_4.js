@@ -101,7 +101,7 @@ function apxZip_cart(){
         apx_clientZip = parseInt($('[autocomplete="postal-code"]').val().replace('-', ''));
       }
     });
-   $('.apx-titlezip').remove();
+   $('.apx-titlezip, .apx-linhazip').remove();
     promocoes_zip.forEach(item => {
       if (apx_clientZip >= item.cep_ini && apx_clientZip <= item.cep_fim) {
         $(`<label class="apx-titlezip" style="margin-top:15px;"><b>Aproveite!!</b> Descontos no frete para sua região!</label><p class="apx-linhazip">${item.msg}</p>`).insertAfter('.cart-shipping > .ui-form-wrapper');
