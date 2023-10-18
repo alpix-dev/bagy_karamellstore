@@ -71,7 +71,11 @@ function apxZip(){
             $('.apx-titlezip').remove();
             promocoes_zip.forEach(item => {
               if (apx_clientZip >= item.cep_ini && apx_clientZip <= item.cep_fim) {
-                $(`<label class="apx-titlezip"><b>Aproveite!!</b> Descontos no frete para sua região!</label><p class="apx-linhazip">${item.msg}</p>`).insertAfter('.checkout-shipping .step-title');
+                if(item.img){
+                  $('<label class="apx-titlezip"><img style="width:100%;height:auto;" src="'+ item.img +'"/></label>').insertAfter('.checkout-shipping .step-title');
+                }else{
+                  $(`<label class="apx-titlezip"><b>Aproveite!!</b> Descontos no frete para sua região!</label><p class="apx-linhazip">${item.msg}</p>`).insertAfter('.checkout-shipping .step-title');
+                }
               }
               console.log(item);
             });
@@ -104,7 +108,11 @@ function apxZip_cart(){
    $('.apx-titlezip, .apx-linhazip').remove();
     promocoes_zip.forEach(item => {
       if (apx_clientZip >= item.cep_ini && apx_clientZip <= item.cep_fim) {
-        $(`<label class="apx-titlezip" style="margin-top:15px;"><b>Aproveite!!</b> Descontos no frete para sua região!</label><p class="apx-linhazip">${item.msg}</p>`).insertAfter('.cart-shipping > .ui-form-wrapper');
+        if(item.img){
+          $('<label class="apx-titlezip"><img style="width:100%;height:auto;" src="'+ item.img +'"/></label>').insertAfter('.cart-shipping > .ui-form-wrapper');
+        }else{
+          $(`<label class="apx-titlezip" style="margin-top:15px;"><b>Aproveite!!</b> Descontos no frete para sua região!</label><p class="apx-linhazip">${item.msg}</p>`).insertAfter('.cart-shipping > .ui-form-wrapper');
+        }
       }
       console.log(item);
     });
